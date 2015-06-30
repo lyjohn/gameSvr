@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.1.xsd">
+
+    <bean id="sysUserService" class="com.gamesvr.service.impl.SysUserServiceExt">
+        <property name="sysUserDao" ref="sysUserDao" />
+    </bean>
+    <bean id="gameInfoService" class="com.gamesvr.service.impl.GameInfoServiceExt">
+        <property name="gameInfoDao" ref="gameInfoDao" />
+    </bean>
+    <bean id="serverInfoService" class="com.gamesvr.service.impl.ServerInfoServiceExt">
+        <property name="serverInfoDao" ref="serverInfoDao" />
+    </bean>
+    <bean id="gameServerService" class="com.gamesvr.service.impl.GameServerServiceExt">
+        <property name="gameServerDao" ref="gameServerDao" />
+    </bean>
+    <bean id="newsService" class="com.gamesvr.service.impl.NewsServiceExt">
+        <property name="newsDao" ref="newsDao" />
+    </bean>
+    <bean id="operLogService" class="com.gamesvr.service.impl.OperLogServiceExt">
+        <property name="operLogDao" ref="operLogDao" />
+    </bean>
+
+    <bean id="avatarService" class="com.gamesvr.service.impl.AvatarService">
+        <property name="rootPath" value="${app.file_root_path}" />
+    </bean>
+
+</beans>

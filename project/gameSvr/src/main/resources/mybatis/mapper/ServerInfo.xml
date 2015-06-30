@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gamesvr.dao.IServerInfoDao">
+	<resultMap type="com.gamesvr.po.ServerInfoExt" id="ServerInfoMap">
+		<id property="id" column="id" />
+		<result property="serverName" column="serverName" />
+		<result property="serverIp" column="serverIp" />
+		<result property="serverAlias" column="serverAlias" />
+		<result property="serverRemark" column="serverRemark" />
+		<result property="status" column="status" />
+		<result property="isDel" column="isDel" />
+		<result property="createTime" column="createTime" />
+		<result property="createBy" column="createBy" />
+		<result property="lastUpdateTime" column="lastUpdateTime" />
+		<result property="lastUpdateBy" column="lastUpdateBy" />
+	</resultMap>
+
+	<insert id="create" parameterType="com.gamesvr.po.ServerInfoExt">
+		<![CDATA[
+		INSERT INTO ServerInfo(
+			id,
+			serverName,
+			serverIp,
+			serverAlias,
+			serverRemark,
+			status,
+			isDel,
+			createTime,
+			createBy,
+			lastUpdateTime,
+			lastUpdateBy
+		)  
+		VALUES(
+			#{id},
+			#{serverName},
+			#{serverIp},
+			#{serverAlias},
+			#{serverRemark},
+			#{status},
+			#{isDel},
+			#{createTime, jdbcType = TIMESTAMP},
+			#{createBy},
+			#{lastUpdateTime, jdbcType = TIMESTAMP},
+			#{lastUpdateBy}
+		)
+		]]>
+	</insert>
+	
+	<update id="update" parameterType="com.gamesvr.po.ServerInfoExt" flushCache="true">
+		<![CDATA[
+		UPDATE ServerInfo
+		SET
+		serverName = #{serverName},
+		serverIp = #{serverIp},
+		serverAlias = #{serverAlias},
+		serverRemark = #{serverRemark},
+		status = #{status},
+		isDel = #{isDel},
+		createTime = #{createTime},
+		createBy = #{createBy},
+		lastUpdateTime = #{lastUpdateTime},
+		lastUpdateBy = #{lastUpdateBy}
+		WHERE id = #{id}
+		]]>
+	</update>
+	
+	<select id="load" parameterType="java.lang.Long" resultMap="ServerInfoMap">
+		<![CDATA[
+		SELECT * FROM ServerInfo WHERE id = #{id}
+		]]>
+	</select>
+	
+	<delete id="delete" parameterType="java.lang.Long">  
+        <![CDATA[
+        DELETE FROM ServerInfo WHERE id = #{id}
+        ]]>
+    </delete>
+    
+    <select id="criteriaQuery" resultMap="ServerInfoMap">
+		SELECT * FROM ServerInfo
+        <if test="mqlList.size > 0">
+            WHERE
+            <foreach collection="mqlList" item="mql" separator="and">
+                ${mql}
+            </foreach>
+        </if>
+        <if test="mortList.size > 0">
+            ORDER BY
+            <foreach collection="mortList" item="mort" separator=",">
+                ${mort}
+            </foreach>
+        </if>
+	</select>
+	
+	<select id="criteriaCount" resultType="int">
+		SELECT COUNT(*) FROM ServerInfo
+        <if test="mqlList.size > 0">
+            WHERE
+            <foreach collection="mqlList" item="mql" separator="and">
+                ${mql}
+            </foreach>
+        </if>
+	</select>
+	
+</mapper>

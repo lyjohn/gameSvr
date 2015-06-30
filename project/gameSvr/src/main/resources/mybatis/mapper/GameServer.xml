@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gamesvr.dao.IGameServerDao">
+	<resultMap type="com.gamesvr.po.GameServerExt" id="GameServerMap">
+		<id property="id" column="id" />
+		<result property="gameId" column="gameId" />
+		<result property="serverId" column="serverId" />
+		<result property="isDel" column="isDel" />
+		<result property="createTime" column="createTime" />
+		<result property="createBy" column="createBy" />
+	</resultMap>
+
+	<insert id="create" parameterType="com.gamesvr.po.GameServerExt">
+		<![CDATA[
+		INSERT INTO GameServer(
+			id,
+			gameId,
+			serverId,
+			isDel,
+			createTime,
+			createBy
+		)  
+		VALUES(
+			#{id},
+			#{gameId},
+			#{serverId},
+			#{isDel},
+			#{createTime, jdbcType = TIMESTAMP},
+			#{createBy}
+		)
+		]]>
+	</insert>
+	
+	<update id="update" parameterType="com.gamesvr.po.GameServerExt" flushCache="true">
+		<![CDATA[
+		UPDATE GameServer
+		SET
+		gameId = #{gameId},
+		serverId = #{serverId},
+		isDel = #{isDel},
+		createTime = #{createTime},
+		createBy = #{createBy}
+		WHERE id = #{id}
+		]]>
+	</update>
+	
+	<select id="load" parameterType="java.lang.Long" resultMap="GameServerMap">
+		<![CDATA[
+		SELECT * FROM GameServer WHERE id = #{id}
+		]]>
+	</select>
+	
+	<delete id="delete" parameterType="java.lang.Long">  
+        <![CDATA[
+        DELETE FROM GameServer WHERE id = #{id}
+        ]]>
+    </delete>
+    
+    <select id="criteriaQuery" resultMap="GameServerMap">
+		SELECT * FROM GameServer
+        <if test="mqlList.size > 0">
+            WHERE
+            <foreach collection="mqlList" item="mql" separator="and">
+                ${mql}
+            </foreach>
+        </if>
+        <if test="mortList.size > 0">
+            ORDER BY
+            <foreach collection="mortList" item="mort" separator=",">
+                ${mort}
+            </foreach>
+        </if>
+	</select>
+	
+	<select id="criteriaCount" resultType="int">
+		SELECT COUNT(*) FROM GameServer
+        <if test="mqlList.size > 0">
+            WHERE
+            <foreach collection="mqlList" item="mql" separator="and">
+                ${mql}
+            </foreach>
+        </if>
+	</select>
+	
+</mapper>

@@ -1,0 +1,21 @@
+.input-icon.input-icon-right > [class*="icon-"] {
+    top: 3px;
+}
+.login-box .toolbar > div.toolbar-note {
+    width: 100%;
+    display: inline-block;
+    padding: 9px 36px 11px;
+    color:#fff;
+}
+.login-box .login-note {
+    margin-top: 12px;
+    display: none;
+}
+.login-box .login-note label{
+    margin: 0;
+    color: #b94a48;
+    display: block;
+}
+.login-layout{
+    background-color: #666;
+}
